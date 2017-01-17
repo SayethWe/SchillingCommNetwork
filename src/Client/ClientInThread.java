@@ -34,6 +34,7 @@ class ClientInThread extends Thread{
 				}
 			} catch (IOException e){
 				System.out.println("There was an IOException while reading the input: " + e);
+				break;
 			}
 		}
 		System.exit(0);
