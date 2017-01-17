@@ -24,7 +24,7 @@ class ServerInThread extends Thread{//Read from client
 	}
 	public void run(){
 		String inStr;
-//		String[] clientName;
+		String[] clientName;
 		boolean runThread = true;
 		while(runThread){
 			//Read from client program, if client says bye, close program
@@ -32,24 +32,30 @@ class ServerInThread extends Thread{//Read from client
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSock.getInputStream())); 
 
 				inStr = in.readLine();
-//				clientName = inStr.split(":");
-//				if(inStr.equalsIgnoreCase(clientName[0] + ": /Server disconnect")){
-//					Server.Socks.remove(clientSock);
-//					Server.Threads.get(Integer.parseInt(threadName)).runThread = false;
-//					clientSock.close();
-//					clientName = inStr.split(":");
-//					inStr = clientName[0] + " has disconnected";
-//				}
-				for (Socket thisSocket : Server.Socks) {
-					PrintWriter out = new PrintWriter(thisSocket.getOutputStream());
-					out.println(inStr);
-					out.flush();
-					//out.close();
+				clientName = inStr.split(":");
+				if(inStr.equalsIgnoreCase(clientName[0] + ": /Server disconnect")){
+					System.out.println("Check");
+					Server.Socks.remove(clientSock);
+					runThread = false;
+					clientSock.close();
+					clientName = inStr.split(":");
+					inStr = clientName[0] + " has disconnected";
+					printMsg(inStr);
+					break;
 				}
-
+				printMsg(inStr);
 			} catch (IOException e){
 				System.out.println("There was an IOException while reading the input: " + e);
 			}
+		}
+	}
+	
+	private void printMsg(String inStr) throws IOException {
+		for (Socket thisSocket : Server.Socks) {
+			PrintWriter out = new PrintWriter(thisSocket.getOutputStream());
+			out.println(inStr);
+			out.flush();
+			//out.close();
 		}
 	}
 }
