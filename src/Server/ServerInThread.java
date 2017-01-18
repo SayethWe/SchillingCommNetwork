@@ -34,7 +34,7 @@ class ServerInThread extends Thread{//Read from client
 				inStr = in.readLine();
 				clientName = inStr.split(":");
 				if(inStr.equalsIgnoreCase(clientName[0] + ": /Server disconnect")){
-					System.out.println("Check");
+					System.out.println(clientName[0] + " disconnected");
 					Server.Socks.remove(clientSock);
 					runThread = false;
 					clientSock.close();
