@@ -5,4 +5,4 @@
  * @author geekman9097
  *
  */
-package Client;
+package com.schilling.communications.client;

@@ -1,4 +1,4 @@
-package Server;
+package com.schilling.communications.server;
 import java.net.*;
 import java.util.ArrayList;
 

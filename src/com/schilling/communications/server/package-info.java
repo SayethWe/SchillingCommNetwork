@@ -5,4 +5,4 @@
  * @author geekman9097, DMWCincy
  *
  */
-package Server;
+package com.schilling.communications.server;

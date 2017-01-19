@@ -1,7 +1,7 @@
-package Server;
+package com.schilling.communications.server;
 import java.net.*;
 import java.io.IOException;
-
+ 
 class ReceiveConnections extends Thread { //Separate thread to check for incoming requests
 	private Thread t;
 	private String threadName;
