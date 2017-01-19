@@ -1,4 +1,4 @@
-package com.schilling.communications.client;
+package org.schillingSchool.communications.client;
 import java.io.*;
 import java.net.*;
 

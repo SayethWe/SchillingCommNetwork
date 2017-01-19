@@ -1,4 +1,4 @@
-package com.schilling.communications.server;
+package org.schillingSchool.communications.server;
 import java.net.*;
 import java.io.IOException;
  
