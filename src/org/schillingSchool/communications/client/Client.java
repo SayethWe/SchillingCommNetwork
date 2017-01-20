@@ -4,7 +4,7 @@ import java.net.*;
 
 public class Client {
 
-	public static void main(String args[]) throws UnknownHostException, IOException {
+	public Client() throws UnknownHostException, IOException {
 		InetAddress hostAddr;
 		String Username = "";
 		String hostPort = null;
