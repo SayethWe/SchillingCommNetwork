@@ -50,8 +50,6 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	private void runClient() {
 		try {
 			new Client();
-			setVisible(false);
-			this.dispose();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,8 +59,6 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	private void runServer() {
 		try {
 			new Server();
-			setVisible(false);
-			this.dispose();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

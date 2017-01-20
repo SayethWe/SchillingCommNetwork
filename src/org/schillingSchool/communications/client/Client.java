@@ -56,9 +56,9 @@ public class Client {
 		//Start communication Thread
 
 		ClientOutThread out = new ClientOutThread("Client Out", clientSock, Username);
-		out.start(); //start in thread
+		out.start(); //start out thread
 		ClientInThread in = new ClientInThread("Client in", clientSock);
-		in.start(); //start out thread
+		in.start(); //start in thread
 
 
 	}
