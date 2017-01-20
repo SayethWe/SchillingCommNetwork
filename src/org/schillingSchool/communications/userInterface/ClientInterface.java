@@ -38,7 +38,7 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 		typeBox.addActionListener(this);
 		components.add(typeBox);
 		
-		displayMessage("Enter a host IP");
+		displayMessage("Enter a host IP"); //until we can get the server to ask, this is here
 	}
 	
 	void displayMessage(String message) {
@@ -49,5 +49,6 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 	public void actionPerformed(ActionEvent event) {
 		String outStr = typeBox.getText();
 		displayMessage(outStr);
+		typeBox.setText(""); //clear the text box after a message has been sent
 	}
 }
