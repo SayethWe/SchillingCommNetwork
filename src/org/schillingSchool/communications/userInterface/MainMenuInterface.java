@@ -10,25 +10,26 @@ import org.schillingSchool.communications.client.Client;
 import org.schillingSchool.communications.server.Server;
 
 public class MainMenuInterface extends GraphicalInterface implements ActionListener {
-	final private int X_SIZE = 250;
-	final private int Y_SIZE = 150;
-	final private String CLIENT_BUTTON = "Start your Client";
-	final private String SERVER_BUTTON = "Start a Server";
-	
-	JButton startServer;
-	JButton startClient;
+	final private static int X_SIZE = 250;
+	final private static int Y_SIZE = 150;
+	final private static int COLUMNS = 1;
+	final private static String TITLE = "Schilling Comm Network";
+	final private static String CLIENT_BUTTON = "Start your Client";
+	final private static String SERVER_BUTTON = "Start a Server";
 
 	public MainMenuInterface() {
-		super(1);
+		super(COLUMNS);
 		setOpeningLayout();
 		drawInterface();
-		setTitle("Schilling Comm Network");
-		setSize(X_SIZE, Y_SIZE);
+		setTitle(TITLE);
+		//setSize(X_SIZE, Y_SIZE);
+		setSize(getPreferredSize());
 	}
 
 	private void setOpeningLayout() {
-		startClient = new JButton(CLIENT_BUTTON);
+		JButton startClient = new JButton(CLIENT_BUTTON);
 		startClient.addActionListener(this);
+		startClient.setActionCommand(CLIENT_BUTTON);
 		components.add(startClient);
 		
 		JLabel orLabel = new JLabel("or");
@@ -36,24 +37,26 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 		orLabel.setVerticalAlignment(SwingConstants.CENTER);
 		components.add(orLabel);
 		
-		startServer = new JButton(SERVER_BUTTON);
+		JButton startServer = new JButton(SERVER_BUTTON);
 		startServer.addActionListener(this);
+		startServer.setActionCommand(SERVER_BUTTON);
 		components.add(startServer);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getSource() == startClient)	runClient();
-		if (event.getSource() == startServer)	runServer();
+		if (event.getActionCommand() == CLIENT_BUTTON)	runClient();
+		if (event.getActionCommand() == SERVER_BUTTON)	runServer();
 	}
 
 	private void runClient() {
-		try {
-			new Client();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+			new ClientInterface();
+//			new Client();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	private void runServer() {
@@ -64,5 +67,4 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 			e.printStackTrace();
 		}
 	}
-
 }
