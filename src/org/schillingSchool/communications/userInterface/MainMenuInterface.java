@@ -8,18 +8,18 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import org.schillingSchool.communications.client.Client;
 import org.schillingSchool.communications.server.Server;
 
 public class MainMenuInterface extends GraphicalInterface implements ActionListener {
 	final private static String TITLE = "Schilling Comm Network";
 	final private static String CLIENT_BUTTON = "Start your Client";
 	final private static String SERVER_BUTTON = "Start a Server";
-
+	
 	public MainMenuInterface() {
 		super();
 		setOpeningLayout();
 		setTitle(TITLE);
+		setResizable(false);
 		//setSize(X_SIZE, Y_SIZE);
 		setSize(getPreferredSize());
 	}
@@ -57,13 +57,7 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	}
 
 	private void runClient() {
-//		try {
 			new ClientInterface();
-//			new Client();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	
 	private void runServer() {
