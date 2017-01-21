@@ -1,23 +1,17 @@
 package org.schillingSchool.communications.userInterface;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 public class GraphicalInterface extends JFrame {
-	ArrayList<JComponent> components = new ArrayList<JComponent>();
+	GridBagConstraints constraints;
 	
-	public GraphicalInterface(int columns) {
-		setLayout(new GridLayout(0,columns));
+	public GraphicalInterface() {
+		setLayout(new GridBagLayout());
+		constraints = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
-	}
-
-	void drawInterface() {
-		for (JComponent thisComponent : components) {
-			add(thisComponent);
-		}
 	}
 }
 
