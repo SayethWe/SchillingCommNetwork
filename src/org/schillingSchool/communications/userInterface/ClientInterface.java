@@ -15,17 +15,16 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 	final private static String TITLE = "Schilling Comm Network Client";
 	final private static String PROMPT_TEXT = "Type a message Here";
 	final private static String NEW_LINE = "\n";
-	final private static String CLIENT_BUTTON = "Start Connection";
 	
 	JTextArea displayText;
 	JTextField typeBox;
-	JButton startClient;
 	
 	public ClientInterface() {
 		super();
 		setClientLayout();
 		setTitle(TITLE);
 		setSize(getPreferredSize());
+		startClient();
 	}
 	
 	private void setClientLayout() {
@@ -52,14 +51,6 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 		constraints.weighty = 0;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		add(typeBox, constraints);
-		
-		startClient = new JButton(CLIENT_BUTTON);
-		startClient.addActionListener(this);
-		constraints.fill = GridBagConstraints.LAST_LINE_END;
-		constraints.gridx = 1;
-		constraints.gridy = 1;
-		constraints.weightx = 0;
-		add(startClient, constraints);
 	}
 	
 	public void displayMessage(String message) {
@@ -70,9 +61,6 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 	public void startClient() {
 		Thread execute = new Thread(new Client(this));
 		execute.start();
-		remove(startClient);
-		validate();
-		repaint();
 	}
 
 	@Override
