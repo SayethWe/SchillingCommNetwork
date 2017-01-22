@@ -1,15 +1,18 @@
 package org.schillingSchool.communications.client;
 import java.io.*;
 import java.net.*;
+import org.schillingSchool.communications.userInterface.ClientInterface;
 
 class ClientInThread extends Thread{
 	private Thread t;
 	private String threadName;
 	Socket clientSock;
+	ClientInterface myGUI;
 
-	ClientInThread(String name, Socket socket){
+	ClientInThread(String name, Socket socket, ClientInterface aGUI){
 		threadName = name;
 		clientSock = socket;
+		myGUI = aGUI;
 		//		System.out.println("Initializing thread: " + threadName);
 	}
 	public void start(){
@@ -27,9 +30,9 @@ class ClientInThread extends Thread{
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
 
 				inStr = in.readLine();
-				System.out.println(inStr);
+				myGUI.displayMessage(inStr);
 				if(inStr.equalsIgnoreCase("/Disconnected")){
-					System.out.println("Server disconnected, terminating...");
+					myGUI.displayMessage("Server disconnected, terminating...");
 					break;
 				}
 			} catch (IOException e){

@@ -1,6 +1,7 @@
 package org.schillingSchool.communications.client;
 import java.io.*;
 import java.net.*;
+import org.schillingSchool.communications.userInterface.ClientInterface;
 
 class ClientOutThread extends Thread{
 	private Thread t;
@@ -9,11 +10,13 @@ class ClientOutThread extends Thread{
 	String userStr;
 	Socket clientSock;
 	String Username;
+	ClientInterface myGUI;
 
-	ClientOutThread(String name, Socket socket, String Uname){
+	ClientOutThread(String name, Socket socket, String Uname, ClientInterface aGUI){
 		threadName = name;
 		clientSock = socket;
 		Username = Uname;
+		myGUI = aGUI;
 		//		System.out.println("Initializing thread: " + threadName);
 	}
 

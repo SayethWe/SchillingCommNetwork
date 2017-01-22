@@ -57,7 +57,7 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	}
 
 	private void runClient() {
-			new ClientInterface();
+			ClientInterface clientScreen = new ClientInterface();
 	}
 	
 	private void runServer() {

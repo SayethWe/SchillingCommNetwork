@@ -1,10 +1,29 @@
 package org.schillingSchool.communications.client;
 import java.io.*;
 import java.net.*;
+import org.schillingSchool.communications.userInterface.ClientInterface;
 
-public class Client {
-
-	public Client() throws UnknownHostException, IOException {
+public class Client implements Runnable {
+	static ClientInterface myGUI;
+	
+	public Client(ClientInterface aGUI) {
+		myGUI = aGUI;
+	}
+	
+	@Override
+	public void run() {
+		try {
+			startUp();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void startUp() throws UnknownHostException, IOException {
 		InetAddress hostAddr;
 		String Username = "";
 		String hostPort = null;
@@ -34,7 +53,7 @@ public class Client {
 				hostPort = new String(dataPack.getData(), 0, dataPack.getLength());//Convert byte array into a port number
 			}catch (Exception e){
 				dataSock.close();
-				System.out.println("Try " + (i + 1) + " failed");
+				myGUI.displayMessage("Try " + (i + 1) + " failed");
 				connection = false;
 			}
 			if(connection == true){ //If port number returned, exit the loop and establish connection
@@ -42,30 +61,28 @@ public class Client {
 			}
 		}
 		if(hostPort == null){ //assurance that we don't try to bind to a null port
-			System.out.println("Server not responding, terminating...");
+			myGUI.displayMessage("Server not responding, terminating...");
 			System.exit(0);
 		}
-		System.out.println("Host port");
-		System.out.println(hostPort);
+		myGUI.displayMessage("Host port: " + hostPort);
 
 		Socket clientSock = new Socket(hostAddr, Integer.parseInt(hostPort)); //Establish connection with server
 
 
 		Username = getInfo("Please enter username:"); //Get username (will be implemented later)
-		System.out.println("Connected. You can now send messages, type '/Server disconnect' to disconnect");
+		myGUI.displayMessage("Connected. You can now send messages, type '/Server disconnect' to disconnect");
 		//Start communication Thread
 
-		ClientOutThread out = new ClientOutThread("Client Out", clientSock, Username);
+		ClientOutThread out = new ClientOutThread("Client Out", clientSock, Username, myGUI);
 		out.start(); //start out thread
-		ClientInThread in = new ClientInThread("Client in", clientSock);
+		ClientInThread in = new ClientInThread("Client in", clientSock, myGUI);
 		in.start(); //start in thread
-
-
 	}
 
 	public static String getInfo(String prompt) throws IOException{ //give user a prompt, return user input
 		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
-		System.out.println(prompt);
+		//System.out.println(prompt);
+		myGUI.displayMessage(prompt);
 		return userInfo.readLine();
 	}
 
