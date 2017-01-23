@@ -11,6 +11,10 @@ import java.io.IOException;
 import org.schillingSchool.communications.server.Server;
 
 public class MainMenuInterface extends GraphicalInterface implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L; //TODO auto-generated Serial ID
 	final private static String TITLE = "Schilling Comm Network";
 	final private static String CLIENT_BUTTON = "Start your Client";
 	final private static String SERVER_BUTTON = "Start a Server";
@@ -57,7 +61,7 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	}
 
 	private void runClient() {
-			ClientInterface clientScreen = new ClientInterface();
+			new ClientInterface();
 	}
 	
 	private void runServer() {

@@ -77,7 +77,7 @@ public class Client implements Runnable {
 		myGUI.displayMessage("Connected. You can now send messages, type '/Server disconnect' to disconnect");
 		//Start communication Thread
 
-		ClientOutThread out = new ClientOutThread("Client Out", clientSock, Username, myGUI);
+		ClientOutThread out = new ClientOutThread("Client Out", clientSock, Username);
 		out.start(); //start out thread
 		ClientInThread in = new ClientInThread("Client in", clientSock, myGUI);
 		in.start(); //start in thread

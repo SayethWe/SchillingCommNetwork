@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import org.schillingSchool.communications.client.*;
 
 public class ClientInterface extends GraphicalInterface implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L; //TODO auto-generated Serial ID
 	final private static int TEXT_HISTORY = 10;
 	final private static int DEFAULT_WIDTH = 20;
 	final private static String TITLE = "Schilling Comm Network Client";
