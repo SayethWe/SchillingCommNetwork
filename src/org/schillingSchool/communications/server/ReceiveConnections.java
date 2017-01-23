@@ -1,13 +1,19 @@
 package org.schillingSchool.communications.server;
 import java.net.*;
+
+import org.schillingSchool.communications.userInterface.ServerInterface;
+
 import java.io.IOException;
  
 class ReceiveConnections extends Thread { //Separate thread to check for incoming requests
 	private Thread t;
 	private String threadName;
 	int i = 0;
-	ReceiveConnections(String name){
+	ServerInterface myGUI;
+	
+	ReceiveConnections(String name, ServerInterface aGUI){
 		threadName = name;
+		myGUI = aGUI;
 	}
 
 	public void start(){ //Start thread
@@ -33,11 +39,11 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				conAddr = conPack.getAddress(); //Get address of requestee
 				conPort = conPack.getPort(); //Get port of requestee
 
-				System.out.println("Client request detected");
-				System.out.println("Client addr: ");
-				System.out.println(conAddr);
-				System.out.println("Client port: ");
-				System.out.println(conPort);
+				myGUI.displayMessage("Client request detected");
+				myGUI.displayMessage("Client addr: ");
+				myGUI.displayMessage(conAddr + "");
+				myGUI.displayMessage("Client port: ");
+				myGUI.displayMessage(conPort + "");
 
 				Server.clientSocks.add(new ServerSocket(0)); //Create new server in the serversocket arraylist
 				Server.Socks.add(new Socket());
@@ -53,9 +59,9 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				Server.Socks.set(Server.Socks.size() - 1, Server.clientSocks.get(Server.clientSocks.size() - 1).accept() ); //Wait 5 seconds for a connection
 
 				//If it doesn't crash this far in, client's connected
-				System.out.println("Client connected");
-				System.out.println("================");
-				System.out.println();
+				myGUI.displayMessage("Client connected");
+				myGUI.displayMessage("================");
+				myGUI.displayMessage("");
 
 				Server.Threads.add(new ServerInThread("Thread " + i, Server.Socks.get(Server.Socks.size() - 1)));
 
@@ -70,7 +76,7 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 					}
 				}
 
-				System.out.println("Error connecting: " + e);
+				myGUI.displayMessage("Error connecting: " + e);
 			}
 		}
 

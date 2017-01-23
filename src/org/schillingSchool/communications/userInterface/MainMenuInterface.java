@@ -61,15 +61,11 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	}
 
 	private void runClient() {
-			new ClientInterface();
+		new ClientInterface();
+		this.dispose();
 	}
 	
 	private void runServer() {
-		try {
-			new Server();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new ServerInterface();
 	}
 }

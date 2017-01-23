@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
+
 import org.schillingSchool.communications.client.*;
 
 public class ClientInterface extends GraphicalInterface implements ActionListener{
