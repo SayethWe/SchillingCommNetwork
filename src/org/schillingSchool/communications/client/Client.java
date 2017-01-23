@@ -4,7 +4,9 @@ import java.net.*;
 import org.schillingSchool.communications.userInterface.ClientInterface;
 
 public class Client implements Runnable {
-	static ClientInterface myGUI;
+	private static ClientInterface myGUI;
+	private static String userString;
+	private static boolean dataAvailable = false;
 	
 	public Client(ClientInterface aGUI) {
 		myGUI = aGUI;
@@ -14,16 +16,18 @@ public class Client implements Runnable {
 	public void run() {
 		try {
 			startUp();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void startUp() throws UnknownHostException, IOException {
+	public void setUserString(String inStr) {
+		userString = inStr;
+		dataAvailable = true;
+	}
+	
+	private void startUp() throws UnknownHostException, IOException {
 		InetAddress hostAddr;
 		String Username = "";
 		String hostPort = null;
@@ -69,7 +73,7 @@ public class Client implements Runnable {
 		Socket clientSock = new Socket(hostAddr, Integer.parseInt(hostPort)); //Establish connection with server
 
 
-		Username = getInfo("Please enter username:"); //Get username (will be implemented later)
+		Username = getInfo("Please enter username:"); //Get user name (will be implemented later)
 		myGUI.displayMessage("Connected. You can now send messages, type '/Server disconnect' to disconnect");
 		//Start communication Thread
 
@@ -77,13 +81,25 @@ public class Client implements Runnable {
 		out.start(); //start out thread
 		ClientInThread in = new ClientInThread("Client in", clientSock, myGUI);
 		in.start(); //start in thread
+		
+		myGUI.clientFinishedStarting(out);
 	}
 
 	public static String getInfo(String prompt) throws IOException{ //give user a prompt, return user input
-		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
+//		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
 		//System.out.println(prompt);
 		myGUI.displayMessage(prompt);
-		return userInfo.readLine();
+		while (!dataAvailable) {
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//wait for there to be actual data.
+		}
+		dataAvailable = false;
+		return userString;
 	}
 
 }

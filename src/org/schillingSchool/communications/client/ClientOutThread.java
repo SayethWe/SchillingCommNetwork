@@ -3,14 +3,16 @@ import java.io.*;
 import java.net.*;
 import org.schillingSchool.communications.userInterface.ClientInterface;
 
-class ClientOutThread extends Thread{
+public class ClientOutThread extends Thread{
 	private Thread t;
 	private String threadName;
 	InetAddress addr;
 	String userStr;
 	Socket clientSock;
 	String Username;
-	ClientInterface myGUI;
+	private ClientInterface myGUI;
+	private static String userString;
+	private static boolean dataAvailable = false;
 
 	ClientOutThread(String name, Socket socket, String Uname, ClientInterface aGUI){
 		threadName = name;
@@ -26,18 +28,31 @@ class ClientOutThread extends Thread{
 			t.start();
 		}
 	}
+	
+	public void setUserString(String inStr) {
+		userString = inStr;
+		dataAvailable = true;
+	}
 
 
 	public void run(){
 
 		try {
 			//			System.out.println(clientSock);
-			BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
-
 			PrintWriter out = new PrintWriter(clientSock.getOutputStream());
 			//			System.out.println(clientSock.getInetAddress());
 			while(true){
-				userStr = userIn.readLine();
+				while (!dataAvailable) {
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//wait for there to be actual data.
+				}
+				dataAvailable = false;
+				userStr = userString;
 				out.println(Username + ": " + userStr);
 				out.flush();
 				if(userStr.equalsIgnoreCase("/Server disconnect")){

@@ -1,13 +1,12 @@
 package org.schillingSchool.communications.userInterface;
 
 import javax.swing.JTextArea;
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
-import org.schillingSchool.communications.client.Client;
+import org.schillingSchool.communications.client.*;
 
 public class ClientInterface extends GraphicalInterface implements ActionListener{
 	final private static int TEXT_HISTORY = 10;
@@ -18,6 +17,9 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 	
 	JTextArea displayText;
 	JTextField typeBox;
+	Client myClient;
+	ClientOutThread myClientOutput;
+	private boolean clientInitializing = true;
 	
 	public ClientInterface() {
 		super();
@@ -25,6 +27,11 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 		setTitle(TITLE);
 		setSize(getPreferredSize());
 		startClient();
+	}
+	
+	public void clientFinishedStarting(ClientOutThread clientOutput) {
+		clientInitializing = false;
+		myClientOutput = clientOutput;
 	}
 	
 	private void setClientLayout() {
@@ -58,19 +65,21 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 		displayText.setCaretPosition(displayText.getDocument().getLength());//jump the cursor to the end of the display to show it
 	}
 	
-	public void startClient() {
-		Thread execute = new Thread(new Client(this));
+	private void startClient() {
+		myClient = new Client(this);
+		Thread execute = new Thread(myClient);
 		execute.start();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) { //activated when a user hits enter on the text box
-		if(event.getSource() == typeBox) {
 			String outStr = typeBox.getText(); //set our outString to be equal to what has been typed
-			displayMessage(outStr); //display the outString. debug code.
 			typeBox.setText(""); //clear the text box after a message has been sent
-		} else {
-			startClient();
-		}
+			if (clientInitializing) {
+				myClient.setUserString(outStr);
+				displayMessage(outStr); //display the outString. debug code.
+			} else {
+				myClientOutput.setUserString(outStr);
+			}
 	}
 }
