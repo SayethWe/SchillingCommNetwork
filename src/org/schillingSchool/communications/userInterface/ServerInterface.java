@@ -2,7 +2,6 @@ package org.schillingSchool.communications.userInterface;
 
 import java.awt.GridBagConstraints;
 import java.io.IOException;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 

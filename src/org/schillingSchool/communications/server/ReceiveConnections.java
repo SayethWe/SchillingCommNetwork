@@ -1,9 +1,9 @@
 package org.schillingSchool.communications.server;
 import java.net.*;
+import java.io.IOException;
 
 import org.schillingSchool.communications.userInterface.ServerInterface;
 
-import java.io.IOException;
  
 class ReceiveConnections extends Thread { //Separate thread to check for incoming requests
 	private Thread t;

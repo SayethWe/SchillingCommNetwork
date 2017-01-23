@@ -7,8 +7,6 @@ import javax.swing.SwingConstants;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import org.schillingSchool.communications.server.Server;
 
 public class MainMenuInterface extends GraphicalInterface implements ActionListener {
 	/**
