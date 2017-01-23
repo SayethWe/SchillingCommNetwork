@@ -18,5 +18,3 @@ public class GraphicalInterface extends JFrame {
 		setVisible(true);
 	}
 }
-
-

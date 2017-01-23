@@ -4,15 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import org.schillingSchool.communications.userInterface.ServerInterface;
 
 class ServerInThread extends Thread{//Read from client
 	private Thread t; //Thread
 	private String threadName; //Thread name
 	Socket clientSock; //The socket
+	ServerInterface myGUI;
 
-	ServerInThread(String name, Socket socket){
+	ServerInThread(String name, Socket socket, ServerInterface aGUI){
 		threadName = name;
 		clientSock = socket;
+		myGUI = aGUI;
 		//		System.out.println("Initializing thread: " + threadName);
 	}
 	public void start(){ //Start thread
@@ -20,7 +23,7 @@ class ServerInThread extends Thread{//Read from client
 			t = new Thread(this, threadName);
 			t.start();
 		}
-		System.out.println("Thread " + threadName + " Started");
+		myGUI.displayMessage("Thread " + threadName + " Started");
 	}
 	public void run(){
 		String inStr;
@@ -34,7 +37,7 @@ class ServerInThread extends Thread{//Read from client
 				inStr = in.readLine();
 				clientName = inStr.split(":");
 				if(inStr.equalsIgnoreCase(clientName[0] + ": /Server disconnect")){
-					System.out.println(clientName[0] + " disconnected");
+					myGUI.displayMessage(clientName[0] + " disconnected");
 					Server.Socks.remove(clientSock);
 					runThread = false;
 					clientSock.close();
@@ -45,7 +48,7 @@ class ServerInThread extends Thread{//Read from client
 				}
 				printMsg(inStr);
 			} catch (IOException e){
-				System.out.println("There was an IOException while reading the input: " + e);
+				myGUI.displayMessage("There was an IOException while reading the input: " + e);
 			}
 		}
 	}

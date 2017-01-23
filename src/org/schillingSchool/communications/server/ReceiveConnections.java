@@ -63,7 +63,7 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				myGUI.displayMessage("================");
 				myGUI.displayMessage("");
 
-				Server.Threads.add(new ServerInThread("Thread " + i, Server.Socks.get(Server.Socks.size() - 1)));
+				Server.Threads.add(new ServerInThread("Thread " + i, Server.Socks.get(Server.Socks.size() - 1), myGUI));
 
 				Server.Threads.get(Server.Threads.size() - 1).start();
 				i++;
