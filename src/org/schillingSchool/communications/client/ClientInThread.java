@@ -8,6 +8,7 @@ class ClientInThread extends Thread{
 	private String threadName;
 	Socket clientSock;
 	ClientInterface myGUI;
+	private static volatile boolean run = true;
 
 	ClientInThread(String name, Socket socket, ClientInterface aGUI){
 		threadName = name;
@@ -21,11 +22,14 @@ class ClientInThread extends Thread{
 			t.start();
 		}
 	}
+	
+	synchronized public void end() {
+		run = false;
+	}
 	public void run(){
 		String inStr;
-
-
-		while(true){
+		
+		while(run){
 			try{
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSock.getInputStream()));
 

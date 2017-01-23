@@ -9,8 +9,9 @@ public class ClientOutThread extends Thread{
 	String userStr;
 	Socket clientSock;
 	String Username;
-	private static String userString;
-	private static boolean dataAvailable = false;
+	private static volatile String userString;
+	private static volatile boolean dataAvailable = false;
+	private static volatile boolean run = true;
 
 	ClientOutThread(String name, Socket socket, String Uname){
 		threadName = name;
@@ -26,19 +27,21 @@ public class ClientOutThread extends Thread{
 		}
 	}
 	
-	public void setUserString(String inStr) {
+	synchronized public void setUserString(String inStr) {
 		userString = inStr;
 		dataAvailable = true;
 	}
 
+	synchronized public void end() {
+		run = false;
+	}
 
 	public void run(){
-
 		try {
 			//			System.out.println(clientSock);
 			PrintWriter out = new PrintWriter(clientSock.getOutputStream());
 			//			System.out.println(clientSock.getInetAddress());
-			while(true){
+			while(run){
 				while (!dataAvailable) {
 					try {
 						Thread.sleep(50);

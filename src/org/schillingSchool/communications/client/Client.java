@@ -5,8 +5,11 @@ import org.schillingSchool.communications.userInterface.ClientInterface;
 
 public class Client implements Runnable {
 	private static ClientInterface myGUI;
-	private static String userString;
-	private static boolean dataAvailable = false;
+	private static volatile String userString;
+	private static volatile boolean dataAvailable = false;
+	
+	private ClientInThread in;
+	private ClientOutThread out;
 	
 	public Client(ClientInterface aGUI) {
 		myGUI = aGUI;
@@ -22,7 +25,7 @@ public class Client implements Runnable {
 		}
 	}
 	
-	public void setUserString(String inStr) {
+	synchronized public void setUserString(String inStr) {
 		userString = inStr;
 		dataAvailable = true;
 	}
@@ -77,9 +80,9 @@ public class Client implements Runnable {
 		myGUI.displayMessage("Connected. You can now send messages, type '/Server disconnect' to disconnect");
 		//Start communication Thread
 
-		ClientOutThread out = new ClientOutThread("Client Out", clientSock, Username);
+		out = new ClientOutThread("Client Out", clientSock, Username);
 		out.start(); //start out thread
-		ClientInThread in = new ClientInThread("Client in", clientSock, myGUI);
+		in = new ClientInThread("Client in", clientSock, myGUI);
 		in.start(); //start in thread
 		
 		myGUI.clientFinishedStarting(out);
@@ -102,4 +105,8 @@ public class Client implements Runnable {
 		return userString;
 	}
 
+	synchronized public void end() {
+		out.end();
+		in.end();
+	}
 }

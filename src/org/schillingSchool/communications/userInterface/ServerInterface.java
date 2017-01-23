@@ -31,7 +31,7 @@ public class ServerInterface extends GraphicalInterface {
 	
 	private void startServer() {
 		try {
-			new Server(this);
+			myServer = new Server(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
