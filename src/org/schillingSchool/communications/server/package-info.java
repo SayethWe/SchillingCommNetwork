@@ -1,5 +1,5 @@
 /**
- * @author geekman9097, DMWCincy
+ * @author DMWCincy, geekman9097
  *
  */
 package org.schillingSchool.communications.server;
