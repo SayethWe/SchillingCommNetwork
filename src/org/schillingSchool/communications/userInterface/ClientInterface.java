@@ -92,16 +92,18 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 			myClientOutput.setUserString(outStr);
 		}
 	}
-
+	
+	//when attempting to close, ask for confirmation of close
 	synchronized private void closeClient() {
 		System.out.println("Closing Client");
 		int confirm = JOptionPane.showOptionDialog(
 				this, EXIT_CONFIRMATION, 
 				"Exit Confirmation", JOptionPane.YES_NO_OPTION, 
 				JOptionPane.QUESTION_MESSAGE, null, null, null);
-		if (confirm == 0) {
+		if (confirm == 0) { //confirm close
 			myClient.end();
 			this.dispose();
+		} else { //don't close the GUI
 		}
 	}
 
