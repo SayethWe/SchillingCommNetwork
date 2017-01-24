@@ -38,7 +38,7 @@ class ServerInThread extends Thread{//Read from client
 				clientName = inStr.split(":");
 				if(inStr.equalsIgnoreCase(clientName[0] + ": /Server disconnect")){
 					myGUI.displayMessage(clientName[0] + " disconnected");
-					Server.Socks.remove(clientSock);
+					Server.socks.remove(clientSock);
 					runThread = false;
 					clientSock.close();
 					clientName = inStr.split(":");
@@ -54,7 +54,7 @@ class ServerInThread extends Thread{//Read from client
 	}
 	
 	private void printMsg(String inStr) throws IOException {
-		for (Socket thisSocket : Server.Socks) {
+		for (Socket thisSocket : Server.socks) {
 			PrintWriter out = new PrintWriter(thisSocket.getOutputStream());
 			out.println(inStr);
 			out.flush();

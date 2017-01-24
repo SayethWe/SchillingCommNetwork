@@ -10,10 +10,15 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 	private String threadName;
 	int i = 0;
 	ServerInterface myGUI;
+	private volatile boolean run;
 	
 	ReceiveConnections(String name, ServerInterface aGUI){
 		threadName = name;
 		myGUI = aGUI;
+	}
+	
+	synchronized public void end() {
+		run = false;
 	}
 
 	public void start(){ //Start thread
@@ -26,7 +31,7 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 	public void run(){
 		InetAddress conAddr; //address of person attempting to connect
 		int conPort; //port of person attempting to connect
-		while(true){ //Don't stop looping
+		while(run){ //Don't stop looping
 			byte[] Pong = new byte[256]; //byte array for packages
 
 			try{
@@ -46,7 +51,7 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				myGUI.displayMessage(conPort + "");
 
 				Server.clientSocks.add(new ServerSocket(0)); //Create new server in the serversocket arraylist
-				Server.Socks.add(new Socket());
+				Server.socks.add(new Socket());
 				Pong = Integer.toString(Server.clientSocks.get(Server.clientSocks.size() - 1).getLocalPort()).getBytes();
 				// ^^^ Take the ServerSocket we just created port number, convert to string
 				//			convert said string into byte array.
@@ -56,16 +61,16 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				conSock.close(); //close DataGram Sock
 
 				Server.clientSocks.get(Server.clientSocks.size() - 1).setSoTimeout(5000); //Set timeout of server to 5 seconds
-				Server.Socks.set(Server.Socks.size() - 1, Server.clientSocks.get(Server.clientSocks.size() - 1).accept() ); //Wait 5 seconds for a connection
+				Server.socks.set(Server.socks.size() - 1, Server.clientSocks.get(Server.clientSocks.size() - 1).accept() ); //Wait 5 seconds for a connection
 
 				//If it doesn't crash this far in, client's connected
 				myGUI.displayMessage("Client connected");
 				myGUI.displayMessage("================");
 				myGUI.displayMessage("");
 
-				Server.Threads.add(new ServerInThread("Thread " + i, Server.Socks.get(Server.Socks.size() - 1), myGUI));
+				Server.threads.add(new ServerInThread("Thread " + i, Server.socks.get(Server.socks.size() - 1), myGUI));
 
-				Server.Threads.get(Server.Threads.size() - 1).start();
+				Server.threads.get(Server.threads.size() - 1).start();
 				i++;
 			} catch(IOException e){
 				if(Server.clientSocks.get(Server.clientSocks.size() - 1) != null){ //If the client doesn't successfully connect, close socket to prevent port wasting... In theory.
@@ -79,6 +84,10 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				myGUI.displayMessage("Error connecting: " + e);
 			}
 		}
-
+		for (Thread thisThread : Server.threads) {
+//			close each thread
+//			thisThread.close();
+			System.out.println(thisThread + " closed.");
+		}
 	}
 }

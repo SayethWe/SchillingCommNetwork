@@ -61,6 +61,7 @@ public class ServerInterface extends GraphicalInterface implements WindowListene
 	@Override public void windowOpened(WindowEvent e) {}
 	@Override public void windowClosing(WindowEvent e) {
 		//TODO SHUTDOWN Server
+		myServer.end();
 	}
 	@Override public void windowClosed(WindowEvent e) {}
 	@Override public void windowIconified(WindowEvent e) {}
