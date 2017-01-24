@@ -14,7 +14,7 @@ public class GraphicalInterface extends JFrame {
 	public GraphicalInterface() {
 		setLayout(new GridBagLayout());
 		constraints = new GridBagConstraints();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
 }

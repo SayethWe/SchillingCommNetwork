@@ -1,6 +1,7 @@
 package org.schillingSchool.communications.userInterface;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -22,7 +23,7 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 		setOpeningLayout();
 		setTitle(TITLE);
 		setResizable(false);
-		//setSize(X_SIZE, Y_SIZE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(getPreferredSize());
 	}
 

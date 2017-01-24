@@ -1,13 +1,15 @@
 package org.schillingSchool.communications.userInterface;
 
 import java.awt.GridBagConstraints;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.schillingSchool.communications.server.Server;
 
-public class ServerInterface extends GraphicalInterface {
+public class ServerInterface extends GraphicalInterface implements WindowListener {
 
 	/**
 	 * 
@@ -55,5 +57,15 @@ public class ServerInterface extends GraphicalInterface {
 		log.append(message + NEW_LINE);
 		log.setCaretPosition(log.getDocument().getLength());//jump the cursor to the end of the display to show it
 	}
+
+	@Override public void windowOpened(WindowEvent e) {}
+	@Override public void windowClosing(WindowEvent e) {
+		//TODO SHUTDOWN Server
+	}
+	@Override public void windowClosed(WindowEvent e) {}
+	@Override public void windowIconified(WindowEvent e) {}
+	@Override public void windowDeiconified(WindowEvent e) {}
+	@Override public void windowActivated(WindowEvent e) {}
+	@Override public void windowDeactivated(WindowEvent e) {}
 
 }
