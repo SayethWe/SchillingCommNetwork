@@ -6,10 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenuInterface extends GraphicalInterface implements ActionListener {
+public class MainMenuInterface extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -18,13 +19,17 @@ public class MainMenuInterface extends GraphicalInterface implements ActionListe
 	final private static String CLIENT_BUTTON = "Start your Client";
 	final private static String SERVER_BUTTON = "Start a Server";
 	
+	GridBagConstraints constraints;
+	
 	public MainMenuInterface() {
-		super();
+		setLayout(new GridBagLayout());
+		constraints = new GridBagConstraints();
 		setOpeningLayout();
 		setTitle(TITLE);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(getPreferredSize());
+		setVisible(true);
 	}
 
 	private void setOpeningLayout() {

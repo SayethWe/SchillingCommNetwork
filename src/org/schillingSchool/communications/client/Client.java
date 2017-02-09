@@ -20,7 +20,6 @@ public class Client implements Runnable {
 		try {
 			startUp();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -96,7 +95,6 @@ public class Client implements Runnable {
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			//wait for there to be actual data.

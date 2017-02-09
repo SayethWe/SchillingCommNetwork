@@ -17,21 +17,31 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 		myGUI = aGUI;
 	}
 	
-	synchronized public void end() {
+	synchronized public void end() { //shutdown command
 		run = false;
+		for (ServerInThread thisThread : Server.threads) { //close each thread
+			try {
+				thisThread.getSocket().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			thisThread.end();
+			System.out.println(thisThread + " closed.");
+		}
+		System.out.println("No Longer Receiving Connections");
 	}
 
 	public void start(){ //Start thread
-		if (t == null) {
-			t = new Thread(this, threadName);
-			t.start();
+		if (t == null) { //if no thread exists
+			t = new Thread(this, threadName); //create a thread
+			t.start(); //start the thread
 		}
 	}
 
 	public void run(){
 		InetAddress conAddr; //address of person attempting to connect
 		int conPort; //port of person attempting to connect
-		while(run){ //Don't stop looping
+		while(run){ //Don't stop looping, unless we've been sent a close message
 			byte[] Pong = new byte[256]; //byte array for packages
 
 			try{
@@ -77,17 +87,13 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 					try{
 						Server.clientSocks.get(Server.clientSocks.size() - 1).close();
 					}catch(IOException e2){
-
+						System.out.println(e.getStackTrace());
+						System.out.println(e2.getStackTrace());
 					}
 				}
 
-				myGUI.displayMessage("Error connecting: " + e);
+				myGUI.displayMessage("Error connecting: " + e); //toss an error
 			}
-		}
-		for (Thread thisThread : Server.threads) {
-//			close each thread
-//			thisThread.close();
-			System.out.println(thisThread + " closed.");
 		}
 	}
 }

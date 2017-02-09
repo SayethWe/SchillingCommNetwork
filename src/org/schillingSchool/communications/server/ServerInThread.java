@@ -7,10 +7,12 @@ import java.io.PrintWriter;
 import org.schillingSchool.communications.userInterface.ServerInterface;
 
 class ServerInThread extends Thread{//Read from client
+	private final static String CLOSING_MESSAGE = "Server Shutting down";
 	private Thread t; //Thread
 	private String threadName; //Thread name
 	Socket clientSock; //The socket
 	ServerInterface myGUI;
+	volatile boolean runThread = true;
 
 	ServerInThread(String name, Socket socket, ServerInterface aGUI){
 		threadName = name;
@@ -25,10 +27,23 @@ class ServerInThread extends Thread{//Read from client
 		}
 		myGUI.displayMessage("Thread " + threadName + " Started");
 	}
+	
+	public Socket getSocket() {
+		return clientSock;
+	}
+	
+	synchronized public void end() {
+		runThread = false;
+		try {
+			printMsg(CLOSING_MESSAGE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void run(){
 		String inStr;
 		String[] clientName;
-		boolean runThread = true;
 		while(runThread){
 			//Read from client program, if client says bye, close program
 			try{

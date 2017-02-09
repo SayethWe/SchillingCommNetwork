@@ -16,7 +16,8 @@ public class Server {
 		connections.start();
 	}
 	
-	synchronized public void end() {
+	synchronized public void end() { //shutdown command
 		connections.end();
+		System.out.println("server " + this + " shutting down.");
 	}
 }

@@ -1,6 +1,7 @@
 package org.schillingSchool.communications.userInterface;
 
 import javax.swing.JTextArea;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -8,11 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 
 import org.schillingSchool.communications.client.*;
 
-public class ClientInterface extends GraphicalInterface implements ActionListener, WindowListener {
+public class ClientInterface extends JFrame implements ActionListener, WindowListener {
 	/**
 	 * 
 	 */
@@ -29,14 +31,18 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 	private Client myClient;
 	private ClientOutThread myClientOutput;
 	private boolean clientInitializing = true;
+	GridBagConstraints constraints;
 
 	public ClientInterface() {
-		super();
+		setLayout(new GridBagLayout());
+		constraints = new GridBagConstraints();
 		setClientLayout();
 		setTitle(TITLE);
 		setSize(getPreferredSize());
+		setVisible(true);
 		startClient();
 		this.addWindowListener(this);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
 	public void clientFinishedStarting(ClientOutThread clientOutput) {
@@ -103,7 +109,6 @@ public class ClientInterface extends GraphicalInterface implements ActionListene
 		if (confirm == 0) { //confirm close
 			myClient.end();
 			this.dispose();
-		} else { //don't close the GUI
 		}
 	}
 
