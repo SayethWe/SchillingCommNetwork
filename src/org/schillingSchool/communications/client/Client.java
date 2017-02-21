@@ -4,6 +4,8 @@ import java.net.*;
 import org.schillingSchool.communications.userInterface.ClientInterface;
 
 public class Client implements Runnable {
+	final private static int DEFAULT_PORT = 3333;
+	
 	private static ClientInterface myGUI;
 	private static volatile String userString;
 	private static volatile boolean dataAvailable = false;
@@ -47,7 +49,7 @@ public class Client implements Runnable {
 			connection = true; //If a connection has been established, exit loop
 
 			DatagramSocket dataSock = new DatagramSocket(); //Create socket on first available port
-			DatagramPacket dataPack = new DatagramPacket(Ping, Ping.length, hostAddr, 3333); //Create a packet to the host address (specified earlier), and port (pre-specified as the port to accept requests)
+			DatagramPacket dataPack = new DatagramPacket(Ping, Ping.length, hostAddr, DEFAULT_PORT); //Create a packet to the host address (specified earlier), and port (pre-specified as the port to accept requests)
 
 			dataSock.send(dataPack); //Send packet to server requesting connection port
 
