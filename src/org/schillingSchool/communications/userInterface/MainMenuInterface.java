@@ -33,31 +33,28 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 	}
 
 	private void setOpeningLayout() {
-		//load button that starts client
 		JButton startClient = new JButton(CLIENT_BUTTON);
 		startClient.addActionListener(this);
 		startClient.setActionCommand(CLIENT_BUTTON);
 		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridx = 0; //"x" coordinate is 0
-		constraints.gridy = 0; //"y" coordinate is 0
+		constraints.gridx = 0;
+		constraints.gridy = 0;
 		add(startClient, constraints);
 		
-		//load "or" in between two buttons
 		JLabel orLabel = new JLabel("or");
 		orLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		orLabel.setVerticalAlignment(SwingConstants.CENTER);
 		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridx = 0; //"x" coordinate is 0
-		constraints.gridy = 1; //"y" coordinate is 1
+		constraints.gridx = 0;
+		constraints.gridy = 1;
 		add(orLabel, constraints);
 		
-		//load button that starts server
 		JButton startServer = new JButton(SERVER_BUTTON);
 		startServer.addActionListener(this);
 		startServer.setActionCommand(SERVER_BUTTON);
 		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridx = 0; //"x" coordinate is 0
-		constraints.gridy = 2; //"y" coordinate is 2
+		constraints.gridx = 0;
+		constraints.gridy = 2;
 		add(startServer, constraints);
 	}
 
