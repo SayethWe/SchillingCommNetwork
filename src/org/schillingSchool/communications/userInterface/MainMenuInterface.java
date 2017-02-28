@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import org.schillingSchool.communications.utils.Utils;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -16,8 +18,8 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L; //TODO auto-generated Serial ID
 	final private static String TITLE = "Schilling Comm Network";
-	final private static String CLIENT_BUTTON = "Start your Client";
-	final private static String SERVER_BUTTON = "Start a Server";
+	final private static String CLIENT_BUTTON = "Start Client";
+	final private static String SERVER_BUTTON = "Start Server";
 	
 	GridBagConstraints constraints;
 	
@@ -30,6 +32,7 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(getPreferredSize());
 		setVisible(true);
+		Utils.log("Main Menu Opened", this);
 	}
 
 	private void setOpeningLayout() {

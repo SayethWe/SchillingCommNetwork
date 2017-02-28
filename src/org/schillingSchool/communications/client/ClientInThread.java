@@ -40,8 +40,7 @@ class ClientInThread extends Thread{
 					break;
 				}
 			} catch (IOException e){
-				//System.out.println("There was an IOException while reading the input: " + e);
-				//Sssssh, The client doesn't need to know that the project's going to hell
+				System.out.println("There was an IOException while reading the input: " + e);
 				break;
 			}
 		}
