@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 
 import org.schillingSchool.communications.client.*;
+import org.schillingSchool.communications.utils.Utils;
 
 public class ClientInterface extends JFrame implements ActionListener, WindowListener {
 	/**
@@ -25,6 +26,8 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 	final private static String PROMPT_TEXT = "Type a message Here";
 	final private static String NEW_LINE = "\n";
 	private static final String EXIT_CONFIRMATION = "Are you sure you want to close your client?";
+	private static final String SLEEP_MESSAGE = "AFK";
+	private static final String WAKE_MESSAGE = "Back";
 
 	private JTextArea displayText;
 	private JTextField typeBox;
@@ -90,12 +93,23 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 	@Override
 	public void actionPerformed(ActionEvent event) { //activated when a user hits enter on the text box
 		String outStr = typeBox.getText(); //set our outString to be equal to what has been typed
+		sendMessage(outStr);
+		System.out.println("message Sent: " + outStr);
 		typeBox.setText(""); //clear the text box after a message has been sent
 		if (clientInitializing) {
-			myClient.setUserString(outStr);
+			sendMessage(outStr);
 			displayMessage(outStr); //display the outString. debug code.
 		} else {
-			myClientOutput.setUserString(outStr);
+			sendMessage(outStr);
+		}
+	}
+	
+	public void sendMessage(String message) {
+		if(clientInitializing) {
+			myClient.setUserString(message);
+			Utils.log("Set User String", this);
+		} else {
+			myClientOutput.setUserString(message);
 		}
 	}
 	
@@ -122,6 +136,10 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 	
 	@Override public void windowIconified(WindowEvent e) {}
 	@Override public void windowDeiconified(WindowEvent e) {}
-	@Override public void windowActivated(WindowEvent e) {}
-	@Override public void windowDeactivated(WindowEvent e) {}
+	@Override public void windowActivated(WindowEvent e) {
+		sendMessage(WAKE_MESSAGE);
+	}
+	@Override public void windowDeactivated(WindowEvent e) {
+		sendMessage(SLEEP_MESSAGE);
+	}
 }
