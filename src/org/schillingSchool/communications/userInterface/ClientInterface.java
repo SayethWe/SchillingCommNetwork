@@ -19,7 +19,7 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; //TODO auto-generated Serial ID
+	private static final long serialVersionUID = 1L;
 	final private static int TEXT_HISTORY = 10;
 	final private static int DEFAULT_WIDTH = 20;
 	final private static String TITLE = "Schilling Comm Network Client";

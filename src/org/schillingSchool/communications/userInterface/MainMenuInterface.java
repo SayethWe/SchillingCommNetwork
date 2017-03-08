@@ -16,7 +16,7 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; //TODO auto-generated Serial ID
+	private static final long serialVersionUID = 1L;
 	final private static String TITLE = "Schilling Comm Network";
 	final private static String CLIENT_BUTTON = "Start Client";
 	final private static String SERVER_BUTTON = "Start Server";
@@ -32,10 +32,14 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(getPreferredSize());
 		setVisible(true);
-		Utils.log("Main Menu Opened", this);
+		Utils.getLogger().info("Main Menu Opened");
 	}
 
 	private void setOpeningLayout() {
+
+		constraints.ipadx = 50;
+		constraints.ipady = 15;
+		
 		//load button that starts client
 		JButton startClient = new JButton(CLIENT_BUTTON);
 		startClient.addActionListener(this);

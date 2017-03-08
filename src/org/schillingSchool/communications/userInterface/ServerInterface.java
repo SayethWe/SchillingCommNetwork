@@ -11,13 +11,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.schillingSchool.communications.server.Server;
+import org.schillingSchool.communications.utils.Utils;
 
 public class ServerInterface extends JFrame implements WindowListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; //TODO Auto-generated Serial ID
+	private static final long serialVersionUID = 1L;
 	final private static int TEXT_HISTORY = 11; //how many lines to show by default
 	final private static int DEFAULT_WIDTH = 20; //how wide to be by default
 	final private static String NEW_LINE = "\n"; //java's new line character
@@ -28,6 +29,7 @@ public class ServerInterface extends JFrame implements WindowListener {
 	GridBagConstraints constraints;
 	
 	public ServerInterface() { //the constructor
+		Utils.getLogger().info("Server interface opened");
 		setLayout(new GridBagLayout());
 		constraints = new GridBagConstraints();
 		setServerLayout();

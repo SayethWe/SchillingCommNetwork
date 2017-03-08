@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import org.schillingSchool.communications.userInterface.ServerInterface;
+import org.schillingSchool.communications.utils.Utils;
 
 public class Server {
 	static ArrayList<ServerSocket> clientSocks = new ArrayList<ServerSocket>(); //Array of serversockets
@@ -11,6 +12,7 @@ public class Server {
 	ReceiveConnections connections;
 
 	public Server(ServerInterface aGUI) throws UnknownHostException{
+		Utils.getLogger().info("Server Started");
 		aGUI.displayMessage("Server started on IP: " + InetAddress.getLocalHost());
 		connections = new ReceiveConnections("getRequests", aGUI);//Start thread to wait for requests
 		connections.start();
@@ -18,6 +20,6 @@ public class Server {
 	
 	synchronized public void end() { //shutdown command
 		connections.end();
-		System.out.println("server " + this + " shutting down.");
+		Utils.getLogger().info("server " + this + " shutting down.");
 	}
 }

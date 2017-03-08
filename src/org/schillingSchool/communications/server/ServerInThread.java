@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import org.schillingSchool.communications.userInterface.ServerInterface;
+import org.schillingSchool.communications.utils.Utils;
 
 class ServerInThread extends Thread{//Read from client
 	private final static String CLOSING_MESSAGE = "Server Shutting down";
@@ -18,7 +19,7 @@ class ServerInThread extends Thread{//Read from client
 		threadName = name;
 		clientSock = socket;
 		myGUI = aGUI;
-		//		System.out.println("Initializing thread: " + threadName);
+		Utils.getLogger().info("Initializing thread: " + threadName);
 	}
 	public void start(){ //Start thread
 		if (t == null) {

@@ -1,11 +1,14 @@
 package org.schillingSchool.communications.client;
-import java.io.*;
-import java.net.*;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+import org.schillingSchool.communications.utils.Utils;
 
 public class ClientOutThread extends Thread{
 	private Thread t;
 	private String threadName;
-	InetAddress addr;
 	String userStr;
 	Socket clientSock;
 	String Username;
@@ -17,7 +20,7 @@ public class ClientOutThread extends Thread{
 		threadName = name;
 		clientSock = socket;
 		Username = Uname;
-		//		System.out.println("Initializing thread: " + threadName);
+		Utils.getLogger().info("Initializing thread: " + threadName);
 	}
 
 	public void start(){
@@ -38,9 +41,9 @@ public class ClientOutThread extends Thread{
 
 	public void run(){
 		try {
-			//			System.out.println(clientSock);
+			Utils.getLogger().info(clientSock.toString());
 			PrintWriter out = new PrintWriter(clientSock.getOutputStream());
-			//			System.out.println(clientSock.getInetAddress());
+			Utils.getLogger().info(clientSock.getInetAddress().toString());
 			while(run){
 				while (!dataAvailable) {
 					try {
@@ -62,7 +65,7 @@ public class ClientOutThread extends Thread{
 			clientSock.close();
 			System.exit(0);
 		}catch(IOException e){
-			System.out.println("IO Exception: " + e);
+			Utils.getLogger().severe("IO Exception: " + e);
 		}
 	}
 }

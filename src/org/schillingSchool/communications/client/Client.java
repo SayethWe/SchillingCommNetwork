@@ -1,6 +1,12 @@
 package org.schillingSchool.communications.client;
-import java.io.*;
-import java.net.*;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import org.schillingSchool.communications.userInterface.ClientInterface;
 
 public class Client implements Runnable {
@@ -105,6 +111,9 @@ public class Client implements Runnable {
 		return userString;
 	}
 
+	/**
+	 * 
+	 */
 	synchronized public void end() {
 		out.end();
 		in.end();

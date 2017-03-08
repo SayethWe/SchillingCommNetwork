@@ -3,6 +3,7 @@ import java.net.*;
 import java.io.IOException;
 
 import org.schillingSchool.communications.userInterface.ServerInterface;
+import org.schillingSchool.communications.utils.Utils;
 
  
 class ReceiveConnections extends Thread { //Separate thread to check for incoming requests
@@ -10,11 +11,12 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 	private String threadName;
 	int i = 0;
 	ServerInterface myGUI;
-	private volatile boolean run;
+	private volatile boolean run = true;
 	
 	ReceiveConnections(String name, ServerInterface aGUI){
 		threadName = name;
 		myGUI = aGUI;
+		Utils.getLogger().info("Connections started");
 	}
 	
 	synchronized public void end() { //shutdown command
@@ -26,9 +28,9 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 				e.printStackTrace();
 			}
 			thisThread.end();
-			System.out.println(thisThread + " closed.");
+			Utils.getLogger().info(thisThread + " closed.");
 		}
-		System.out.println("No Longer Receiving Connections");
+		Utils.getLogger().info("No Longer Receiving Connections");
 	}
 
 	public void start(){ //Start thread
@@ -39,10 +41,12 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 	}
 
 	public void run(){
+		Utils.getLogger().info("RUnning Connector");
 		InetAddress conAddr; //address of person attempting to connect
 		int conPort; //port of person attempting to connect
 		while(run){ //Don't stop looping, unless we've been sent a close message
 			byte[] Pong = new byte[256]; //byte array for packages
+			Utils.getLogger().info(this.toString() + " started");
 
 			try{
 				DatagramSocket conSock = new DatagramSocket(3333); //Create a socket to wait for connection requests
@@ -87,8 +91,8 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 					try{
 						Server.clientSocks.get(Server.clientSocks.size() - 1).close();
 					}catch(IOException e2){
-						System.out.println(e.getStackTrace());
-						System.out.println(e2.getStackTrace());
+						Utils.getLogger().warning(e.getStackTrace().toString());
+						Utils.getLogger().warning(e2.getStackTrace().toString());
 					}
 				}
 
