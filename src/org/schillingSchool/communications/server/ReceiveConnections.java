@@ -5,7 +5,14 @@ import java.io.IOException;
 import org.schillingSchool.communications.userInterface.ServerInterface;
 import org.schillingSchool.communications.utils.Utils;
 
- 
+
+/**
+ * @author William Black
+ * 		Wait for a connection, when a connection is received open a new thread for
+ * 	client.
+ * @Param name
+ * @Param aGUI
+ */
 class ReceiveConnections extends Thread { //Separate thread to check for incoming requests
 	private Thread t;
 	private String threadName;
@@ -13,12 +20,20 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 	ServerInterface myGUI;
 	private volatile boolean run = true;
 	
+	/**
+	 * Constructor for the ReceiveConnections class
+	 * @param name
+	 * @param aGUI
+	 */
 	ReceiveConnections(String name, ServerInterface aGUI){
 		threadName = name;
 		myGUI = aGUI;
 		Utils.getLogger().info("Connections started");
 	}
 	
+	/**
+	 * Closes all the clients before coming to an end
+	 */
 	synchronized public void end() { //shutdown command
 		run = false;
 		for (ServerInThread thisThread : Server.threads) { //close each thread
@@ -33,15 +48,21 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 		Utils.getLogger().info("No Longer Receiving Connections");
 	}
 
+	/**
+	 * Starts the receive connections thread
+	 */
 	public void start(){ //Start thread
 		if (t == null) { //if no thread exists
 			t = new Thread(this, threadName); //create a thread
 			t.start(); //start the thread
 		}
 	}
-
+	/**
+	 * Wait for a client, once one is received give them instructions to connect
+	 * Open a new thread for them and connect with them
+	 */
 	public void run(){
-		Utils.getLogger().info("RUnning Connector");
+		Utils.getLogger().info("Running Connector");
 		InetAddress conAddr; //address of person attempting to connect
 		int conPort; //port of person attempting to connect
 		while(run){ //Don't stop looping, unless we've been sent a close message

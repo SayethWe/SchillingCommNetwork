@@ -8,7 +8,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.schillingSchool.communications.userInterface.ClientInterface;
-
+/**
+ * 
+ * @author William Black
+ * @Param aGUI, A Client Interface GUI
+ *
+ */
 public class Client implements Runnable {
 	final private static int DEFAULT_PORT = 3333;
 	
@@ -18,12 +23,19 @@ public class Client implements Runnable {
 	
 	private ClientInThread in;
 	private ClientOutThread out;
-	
+		
+	/**
+	 * The constructor
+	 * @param aGUI, another GUI
+	 */
 	public Client(ClientInterface aGUI) {
 		myGUI = aGUI;
 	}
 	
 	@Override
+	/**
+	 * The startup code for the runnable
+	 */
 	public void run() {
 		try {
 			startUp();
@@ -31,12 +43,22 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+	 
+	/**
+	 * Sets the User String, and declares data is available
+	 * @param inStr
+	 */
 	synchronized public void setUserString(String inStr) {
 		userString = inStr;
 		dataAvailable = true;
 	}
 	
+		/**
+		 * 	Attempts connection to server, if connection is true:
+		 * starts the two client - server communication threads
+		 * @throws UnknownHostException
+		 * @throws IOException
+		 */
 	private void startUp() throws UnknownHostException, IOException {
 		InetAddress hostAddr;
 		String Username = "";
@@ -95,6 +117,12 @@ public class Client implements Runnable {
 		myGUI.clientFinishedStarting(out);
 	}
 
+		/**
+		 * A badly named class that sends data to the client GUI
+		 * @param prompt, the message to display to the client
+		 * @return userString, the message displayed
+		 * @throws IOException
+		 */
 	public static String getInfo(String prompt) throws IOException{ //give user a prompt, return user input
 //		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
 		//System.out.println(prompt);
@@ -112,7 +140,7 @@ public class Client implements Runnable {
 	}
 
 	/**
-	 * 
+	 * Ends the two communication threads
 	 */
 	synchronized public void end() {
 		out.end();
