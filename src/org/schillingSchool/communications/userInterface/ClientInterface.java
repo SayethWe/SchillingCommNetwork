@@ -107,7 +107,7 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 	public void sendMessage(String message) {
 		if(clientInitializing) {
 			myClient.setUserString(message);
-			Utils.log("Set User String", this);
+			Utils.getLogger().info("Set User String" + this);
 		} else {
 			myClientOutput.setUserString(message);
 		}
