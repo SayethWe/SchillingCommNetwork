@@ -41,7 +41,7 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 		constraints = new GridBagConstraints();
 		setClientLayout();
 		setTitle(TITLE);
-		setSize(getPreferredSize());
+		setSize(getMaximumSize());
 		setVisible(true);
 		startClient();
 		this.addWindowListener(this);

@@ -1,16 +1,18 @@
 package org.schillingSchool.communications.userInterface;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import org.schillingSchool.communications.utils.Utils;
-
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainMenuInterface extends JFrame implements ActionListener {
 	/**
@@ -30,7 +32,9 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 		setTitle(TITLE);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setPreferredSize(new Dimension(1250, 750));
 		setSize(getPreferredSize());
+		getContentPane().setBackground(Color.BLACK);
 		setVisible(true);
 		Utils.getLogger().info("Main Menu Opened");
 	}
