@@ -1,11 +1,11 @@
 package org.schillingSchool.communications.client;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.IOException; //An exception to the input or output
+import java.net.DatagramPacket; //
+import java.net.DatagramSocket; //
+import java.net.InetAddress; //
+import java.net.Socket; //
+import java.net.UnknownHostException; //
 
 import org.schillingSchool.communications.userInterface.ClientInterface;
 /**
@@ -16,14 +16,14 @@ import org.schillingSchool.communications.userInterface.ClientInterface;
  */
 public class Client implements Runnable {
 	final private static int DEFAULT_PORT = 3333;
-	
+
 	private static ClientInterface myGUI;
 	private static volatile String userString;
 	private static volatile boolean dataAvailable = false;
-	
+
 	private ClientInThread in;
 	private ClientOutThread out;
-		
+
 	/**
 	 * The constructor
 	 * @param aGUI, another GUI
@@ -31,7 +31,7 @@ public class Client implements Runnable {
 	public Client(ClientInterface aGUI) {
 		myGUI = aGUI;
 	}
-	
+
 	@Override
 	/**
 	 * The startup code for the runnable
@@ -43,7 +43,7 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	 
+
 	/**
 	 * Sets the User String, and declares data is available
 	 * @param inStr
@@ -52,13 +52,13 @@ public class Client implements Runnable {
 		userString = inStr;
 		dataAvailable = true;
 	}
-	
-		/**
-		 * 	Attempts connection to server, if connection is true:
-		 * starts the two client - server communication threads
-		 * @throws UnknownHostException
-		 * @throws IOException
-		 */
+
+	/**
+	 * 	Attempts connection to server, if connection is true:
+	 * starts the two client - server communication threads
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	private void startUp() throws UnknownHostException, IOException {
 		InetAddress hostAddr;
 		String Username = "";
@@ -113,18 +113,18 @@ public class Client implements Runnable {
 		out.start(); //start out thread
 		in = new ClientInThread("Client in", clientSock, myGUI);
 		in.start(); //start in thread
-		
+
 		myGUI.clientFinishedStarting(out);
 	}
 
-		/**
-		 * A badly named class that sends data to the client GUI
-		 * @param prompt, the message to display to the client
-		 * @return userString, the message displayed
-		 * @throws IOException
-		 */
+	/**
+	 * A badly named class that sends data to the client GUI
+	 * @param prompt, the message to display to the client
+	 * @return userString, the message displayed
+	 * @throws IOException
+	 */
 	public static String getInfo(String prompt) throws IOException{ //give user a prompt, return user input
-//		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
+		//		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
 		//System.out.println(prompt);
 		myGUI.displayMessage(prompt);
 		while (!dataAvailable) {
