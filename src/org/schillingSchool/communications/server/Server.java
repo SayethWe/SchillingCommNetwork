@@ -14,7 +14,7 @@ public class Server {
 	static ArrayList<ServerSocket> clientSocks = new ArrayList<ServerSocket>(); //Array of serversockets
 	static ArrayList<Socket> socks = new ArrayList<Socket>();
 	static ArrayList<ServerInThread> threads = new ArrayList<ServerInThread>();
-	ReceiveConnections connections;
+	private ReceiveConnections connections;
 	/**
 	 * 
 	 * @param aGUI

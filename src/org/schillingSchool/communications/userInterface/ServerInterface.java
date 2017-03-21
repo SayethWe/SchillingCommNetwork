@@ -24,9 +24,9 @@ public class ServerInterface extends JFrame implements WindowListener {
 	final private static String NEW_LINE = "\n"; //java's new line character
 	final private static String TITLE = "Schilling Comm Network Server";
 	
-	JTextArea log;
-	Server myServer;
-	GridBagConstraints constraints;
+	private JTextArea log;
+	private Server myServer;
+	private GridBagConstraints constraints;
 	
 	public ServerInterface() { //the constructor
 		Utils.getLogger().info("Server interface opened");

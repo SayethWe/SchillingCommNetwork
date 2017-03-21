@@ -9,9 +9,9 @@ import org.schillingSchool.communications.utils.Utils;
 public class ClientOutThread extends Thread{
 	private Thread t;
 	private String threadName;
-	String userStr;
-	Socket clientSock;
-	String Username;
+	private String userStr;
+	private Socket clientSock;
+	private String Username;
 	private static volatile String userString;
 	private static volatile boolean dataAvailable = false;
 	private static volatile boolean run = true;
@@ -35,7 +35,7 @@ public class ClientOutThread extends Thread{
 		dataAvailable = true;
 	}
 
-	synchronized public void end() {
+	synchronized void end() {
 		run = false;
 	}
 

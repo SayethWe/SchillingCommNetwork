@@ -23,7 +23,7 @@ public class MainMenuInterface extends JFrame implements ActionListener {
 	final private static String CLIENT_BUTTON = "Start Client";
 	final private static String SERVER_BUTTON = "Start Server";
 	
-	GridBagConstraints constraints;
+	private GridBagConstraints constraints;
 	
 	public MainMenuInterface() {
 		setLayout(new GridBagLayout());

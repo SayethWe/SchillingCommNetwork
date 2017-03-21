@@ -17,8 +17,8 @@ import org.schillingSchool.communications.utils.Utils;
 class ClientInThread extends Thread{
 	private Thread t; //the thread we run on
 	private String threadName; //a name to identify the thread
-	Socket clientSock; //the socket we talk over
-	ClientInterface myGUI; //the gui we talk to
+	private Socket clientSock; //the socket we talk over
+	private ClientInterface myGUI; //the gui we talk to
 	private static volatile boolean run = true; //if we're still supposed to run. Should always be initialized to true.
 
 	/**

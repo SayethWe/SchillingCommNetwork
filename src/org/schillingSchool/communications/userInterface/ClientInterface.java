@@ -34,7 +34,7 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 	private Client myClient;
 	private ClientOutThread myClientOutput;
 	private boolean clientInitializing = true;
-	GridBagConstraints constraints;
+	private GridBagConstraints constraints;
 
 	public ClientInterface() {
 		setLayout(new GridBagLayout());
@@ -104,7 +104,7 @@ public class ClientInterface extends JFrame implements ActionListener, WindowLis
 		}
 	}
 	
-	public void sendMessage(String message) {
+	private void sendMessage(String message) {
 		if(clientInitializing) {
 			myClient.setUserString(message);
 			Utils.getLogger().info("Set User String" + this);

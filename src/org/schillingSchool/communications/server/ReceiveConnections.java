@@ -16,8 +16,7 @@ import org.schillingSchool.communications.utils.Utils;
 class ReceiveConnections extends Thread { //Separate thread to check for incoming requests
 	private Thread t;
 	private String threadName;
-	int i = 0;
-	ServerInterface myGUI;
+	private ServerInterface myGUI;
 	private volatile boolean run = true;
 	
 	/**
@@ -62,6 +61,7 @@ class ReceiveConnections extends Thread { //Separate thread to check for incomin
 	 * Open a new thread for them and connect with them
 	 */
 	public void run(){
+		int i = 0;
 		Utils.getLogger().info("Running Connector");
 		InetAddress conAddr; //address of person attempting to connect
 		int conPort; //port of person attempting to connect

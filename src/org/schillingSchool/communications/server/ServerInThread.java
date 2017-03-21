@@ -16,9 +16,9 @@ class ServerInThread extends Thread{
 	private final static String CLOSING_MESSAGE = "Server Shutting down";
 	private Thread t; //Thread we run on
 	private String threadName; //Thread name to identify it
-	Socket clientSock; //The socket we talk over
-	ServerInterface myGUI; //a gui to talk to
-	volatile boolean runThread = true;
+	private Socket clientSock; //The socket we talk over
+	private ServerInterface myGUI; //a gui to talk to
+	private volatile boolean runThread = true;
 
 	/**
 	 * Construct the In Thread with specified name, socket, and gui. 

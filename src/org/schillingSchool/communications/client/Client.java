@@ -123,7 +123,7 @@ public class Client implements Runnable {
 	 * @return userString, the message displayed
 	 * @throws IOException
 	 */
-	public static String getInfo(String prompt) throws IOException{ //give user a prompt, return user input
+	private static String getInfo(String prompt) throws IOException{ //give user a prompt, return user input
 		//		BufferedReader userInfo = new BufferedReader( new InputStreamReader(System.in));
 		//System.out.println(prompt);
 		myGUI.displayMessage(prompt);
