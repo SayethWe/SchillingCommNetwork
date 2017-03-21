@@ -7,21 +7,36 @@ import java.io.PrintWriter;
 import org.schillingSchool.communications.userInterface.ServerInterface;
 import org.schillingSchool.communications.utils.Utils;
 
-class ServerInThread extends Thread{//Read from client
+/**
+ * A thread that listens to a specified port. The server creates one for ach client it thinks it has
+ * @author DMWCincy
+ * Written pi day 2017 (14/3/17)
+ */
+class ServerInThread extends Thread{
 	private final static String CLOSING_MESSAGE = "Server Shutting down";
-	private Thread t; //Thread
-	private String threadName; //Thread name
-	Socket clientSock; //The socket
-	ServerInterface myGUI;
+	private Thread t; //Thread we run on
+	private String threadName; //Thread name to identify it
+	Socket clientSock; //The socket we talk over
+	ServerInterface myGUI; //a gui to talk to
 	volatile boolean runThread = true;
 
+	/**
+	 * Construct the In Thread with specified name, socket, and gui. 
+	 * @param name A name to help identify the thread
+	 * @param socket the socket we're listening for data on
+	 * @param aGUI the gui we send our messages to
+	 */
 	ServerInThread(String name, Socket socket, ServerInterface aGUI){
 		threadName = name;
 		clientSock = socket;
 		myGUI = aGUI;
-		Utils.getLogger().info("Initializing thread: " + threadName);
+		Utils.getLogger().info("Initializing thread: " + threadName); //log that we've started
 	}
-	public void start(){ //Start thread
+	
+	/**
+	 * Start this thread on a separate entity
+	 */
+	public void start(){
 		if (t == null) {
 			t = new Thread(this, threadName);
 			t.start();
@@ -29,12 +44,19 @@ class ServerInThread extends Thread{//Read from client
 		myGUI.displayMessage("Thread " + threadName + " Started");
 	}
 	
+	/**
+	 * get the socket we talk over
+	 * @return the socket this Thread uses to listen
+	 */
 	public Socket getSocket() {
 		return clientSock;
 	}
 	
+	/**
+	 * tell this method it's time to end
+	 */
 	synchronized public void end() {
-		runThread = false;
+		runThread = false; //it's no longer time to work
 		try {
 			printMsg(CLOSING_MESSAGE);
 		} catch (IOException e) {
@@ -42,10 +64,13 @@ class ServerInThread extends Thread{//Read from client
 		}
 	}
 	
+	/**
+	 * The method that runs once the thread is created
+	 */
 	public void run(){
 		String inStr;
 		String[] clientName;
-		while(runThread){
+		while(runThread){ //run, unless we've been told not to
 			//Read from client program, if client says bye, close program
 			try{
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSock.getInputStream())); 
